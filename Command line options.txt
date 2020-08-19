@@ -1,0 +1,100 @@
+Welcome to Beferrer v1.3 - animal behaviour inference processor (--help for options)
+Options:
+usage: java -jar Beferrer
+ -a,--Activity <b1,s1,b2,s2...>      Activity category specification based
+                                     on speed. Provide behaviour name (bn)
+                                     and maximum speed (sn) for each
+                                     behaviour required as a comma
+                                     separated list. No spaces in
+                                     parameter list. Default is
+                                     <Stationary,0.02,Foraging,0.33,Moving
+                                     ,10.0>
+ -c,--CoordinatesFence <N,W,S,E>     Ignore coordinates outside the region
+                                     <N,W,S,E>. Comma separated decimal
+                                     lat,log,lat,lon values. No spaces in
+                                     parameter list.
+ -cde,--EndDate <dd/mm/yyyy>         Ignore data after the specified date.
+                                     Must use 4 digit year.
+ -cds,--StartDate <dd/mm/yyyy>       Ignore data before the specified
+                                     date. Must use 4 digit year.
+ -cg,--GlitchSpeed <speed>           Minimum speed considered as a single
+                                     point gps glitch. Data point will be
+                                     removed if adjacent points provide
+                                     movement with speed below the
+                                     specified value.
+ -cte,--EndTime <hh:mm:ss>           Ignore daily data after the specified
+                                     time.
+ -cts,--StartTime <hh:mm:ss>         Ignore daily data before the
+                                     specified time. If StartTime greater
+                                     than EndTime then overnight period.
+ -f,--File <name>                    Input file name (including path if
+                                     required). Ignored if -fd used.
+ -fd,--Folder <folder>               Input folder/directory containing
+                                     data files. If neither file (-f) or
+                                     folder (-fd) is specified all files
+                                     in the current working folder will be
+                                     used subject to any suffix
+                                     specification set with -fs
+ -fs,--Suffix <suffix>               Suffix to be used to select input
+                                     file names. Include the '.' when the
+                                     suffix is a file type extension. e.g.
+                                     .TXT Do not use for -f option where
+                                     complete filename is used. Omission
+                                     in conjunction with -fd will process
+                                     every file in the folder.
+ -g,--GroupTime <min:max>            Time resolution of data to consider.
+                                     Each sequential set of coordinates
+                                     that satisfy this range is considered
+                                     a sample group ie. a track segment
+                                     that includes movements between min
+                                     and max seconds duration. Extracts
+                                     sample group sequences from a mixed
+                                     resulution data set. Defult is all
+                                     data.
+ -ge,--TrimGroupEnd <n>              Remove n points from the end of each
+                                     sample group.
+ -gg,--TrimGroupBelowSpeed <speed>   All movements before or after a
+                                     movement greater than the specified
+                                     speed are removed from each group.
+ -gs,--TrimGroupStart <n>            Remove n of points from the start of
+                                     each sample group.
+ -h,--help                           This page. In case of problems or
+                                     queries contact nns@aber.ac.uk .
+ -m,--MovementAverage <time>         Average the movement speed data over
+                                     the specified time period (seconds).
+                                     Omission or 0 value will result in no
+                                     averaging of movements.
+ -p,--PositionAverage <dist>         Average the position coordinates over
+                                     the specified distance (meters) prior
+                                     to generating movements. Smooths gps
+                                     track in the presence of gps lockup
+                                     or gps noise. Alternatively set to 0
+                                     to combine non-moving sequences (gps
+                                     lockup) into a single longer duration
+                                     move. Default if not set 2.0m
+ -v,--Verbose                        Detailed output of the processing
+                                     steps. Use for explanation or
+                                     debugging (can be long so redirect to
+                                     a file).
+
+Beferrer accepts comma delimeted text files as input. Each valid line should contain
+four items: lat, long, date, time. Lat and long are decimals. Dates are in dd/mm/yyyy 
+format and times in hh:mm:ss format. An example of a valid line of data is:
+52.439037, -3.993740, 27/5/2018, 10:5:54
+Any lines that do not contain four items in this format are ignored.
+
+Output files are created in the same folder as the input data.
+These file names include a compact version of the (non default) command line options
+to allow output to be easily preserved if the tool is run with different options.
+
+A summary of the processing steps is output to the terminal. More detailed 
+information can be produced using the -v (or --Verbose) option.
+
+The tool also produces several data files for the widely used (free) gnuplot tool to 
+allow quick visual sanity checking of the results. Obtain gnuplot from:
+http://www.gnuplot.info
+Assuming that gnuplot is properly installed, the contents of the file prefixed
+'gnuplot_commands' can be pasted onto the command line (after setting the working folder 
+to the location of the output) to produce .eps graphs.
+These files contain gnuplot commands and the relevant data, in plain text format and can 
+be edited as desired, e.g. to change line widths, axis ranges, titles etc.
