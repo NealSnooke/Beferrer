@@ -10,6 +10,13 @@ It processes that data in a number of steps controlled by the command line param
 
 In addition .gnuplot text files are produced that contain a script and data that can be used by the gnuplot tool (http://www.gnuplot.info) to directly produce graphs. The .gnuplot file can be simply provided to the gnuplot command as a parameter and it will produce .eps output that can be viewed in most .pdf viwers.
 
+#Folder structure
+The /src folder contains the java source files
+
+The /testData folder contains several files containing raw tag data that is used as input to the tool.
+
+The Example_output folder contains a few example graphs and sets of output data produced by the tool.
+
 
 
 
