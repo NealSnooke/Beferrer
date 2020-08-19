@@ -1,6 +1,8 @@
 # Beferrer
 A small java project to process data created by some bespoke animal tags.
 
+This work is licensed under the Creative Commons Attribution 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
+
 # Operation Overview
 The program accepts as input a text file full of raw data uploaded from the tags. 
 
